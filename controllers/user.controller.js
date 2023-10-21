@@ -1,38 +1,39 @@
 const service = require('../services/user.service');
+const path = require('path');
 
 exports.allAccess = (req, res) => {
   try {
     var all = service.allAccess()
     return res.status(200).json({ status: 200, data: all, message: "List all Users" });
   } catch (e) {
-      return res.status(400).json({ status: 400, message: "Control: " + e.message });
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
   }
 };
 
-exports.userGetFiles = (req, res) => {
+exports.userDeleteFile = (req, res) => {
   try {
-    var all = service.getFiles()
-    return res.status(200).json({ status: 200, data: all, message: "Get data Files" });
+    var all = service.deleteFile(req);
+    return res.status(200).json({ status: 200, data: all, message: "Delete File Success" });
   } catch (e) {
-      return res.status(400).json({ status: 400, message: "Files: " + e.message });
+    return res.status(400).json({ status: 400, message: "Files: " + e.message });
   }
 };
 
-exports.userUploadFiles = (req, res) => {
+exports.userUploadFile = (req, res) => {
   try {
-    var all = service.uploadFiles()
-    return res.status(200).json({ status: 200, data: all, message: "Upload Files" });
+    var all = service.uploadFile(req)
+    return res.status(200).json({ status: 200, data: all, message: "Upload File Success" });
   } catch (e) {
-      return res.status(400).json({ status: 400, message: "Files: " + e.message });
+    return res.status(400).json({ status: 400, message: "Files: " + e.message });
   }
 };
   
-exports.userBoard = async (req, res) => {
+exports.userDitails = async (req, res) => {
   try {
-    var all = await service.getUsers(req)
+    var all = await service.getUserDitails(req)
     return res.status(200).json({ status: 200, data: all, message: "Ditails User" });
   } catch (e) {
-      return res.status(400).json({ status: 400, message: "Control: " + e.message });
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
   }
 };
 

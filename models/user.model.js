@@ -12,7 +12,8 @@ const User = mongoose.model(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Role"
         }
-      ]
+      ],
+      avatar: String,
     },
     { collection: 'Users' }
   )

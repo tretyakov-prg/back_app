@@ -1,5 +1,7 @@
+const express = require('express');
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
+const upload = require("../middlewares/uploadImage");
 
 const URL_USERPATH = process.env.URL_USERPATH;
 
@@ -12,18 +14,18 @@ module.exports = function(app) {
     next();
   });
 
-  app.get(`${URL_USERPATH}/all`,                                              controller.allAccess);
+  app.get(`${URL_USERPATH}/all`,                                                             controller.allAccess);
 
-  app.post(`${URL_USERPATH}/ditails`, [authJwt.verifyToken],                  controller.userBoard);
+  app.post(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.userDitails);
 
-  app.get(`${URL_USERPATH}/files`, [authJwt.verifyToken],                     controller.userGetFiles);
+  app.delete(`${URL_USERPATH}/upload`,           [authJwt.verifyToken],                      controller.userDeleteFile);
 
-  app.post(`${URL_USERPATH}/upload`, [authJwt.verifyToken],                    controller.userUploadFiles);
+  app.post(`${URL_USERPATH}/upload`,             [authJwt.verifyToken], [upload],            controller.userUploadFile);
 
-  app.get(`${URL_USERPATH}/mod`,  [authJwt.verifyToken, authJwt.isModerator], controller.moderatorBoard );
+  app.get(`${URL_USERPATH}/mod`,                 [authJwt.verifyToken, authJwt.isModerator], controller.moderatorBoard );
 
-  app.get(`${URL_USERPATH}/admin`,[authJwt.verifyToken, authJwt.isAdmin],     controller.adminBoard);
+  app.get(`${URL_USERPATH}/admin`,               [authJwt.verifyToken, authJwt.isAdmin],     controller.adminBoard);
 
-  app.get(`${URL_USERPATH}/rols`, [authJwt.verifyToken, authJwt.isAdmin],     controller.routeAdmin);
+  app.get(`${URL_USERPATH}/rols`,                [authJwt.verifyToken, authJwt.isAdmin],     controller.routeAdmin);
 
 };

@@ -1,6 +1,10 @@
 const db = require("../models");
+const path = require('path');
+var fs = require("fs");
 const User = db.user;
 const Role = db.role;
+
+const root_folder = process.env.FOLDER_PATH;
 
 exports.allAccess = () => {
     try {
@@ -10,23 +14,37 @@ exports.allAccess = () => {
     }
 }
 
-exports.getFiles = () => {
+exports.deleteFile = async(req, res) => {
     try {
-        return "Public Content."
+        //console.log(req.headers["id-user"])
+        
+        const user = await User.findById(req.headers["id-user"]);
+        console.log(root_folder + "\\" + "uploads\\" + user.avatar)
+        fs.unlinkSync(root_folder + "\\" + "uploads\\" + user.avatar);
+        
+        user.avatar = null;
+        await user.save();
+        return {message: "File avatar delete"};
     } catch (error) {
-        throw new Error('Failed to execute MySQL query');
+        //throw new Error('Failed to execute Upload File');
+        return {message: error}
     }
 }
 
-exports.uploadFiles = () => {
+exports.uploadFile = async (req) => {
     try {
-        return "Public Content."
+        const file = req.file.filename;
+        const user = await User.findById(req.headers["id-user"]);
+        user.avatar = file;
+        await user.save();
+        return {message: "File avatar Upload"};
     } catch (error) {
-        throw new Error('Failed to execute MySQL query');
+        //throw new Error('Failed to execute Upload File');
+        return {message: error}
     }
 }
 
-exports.getUsers = async (req) => {
+exports.getUserDitails = async (req) => {
     try {
         const getResult = async () => await User.findOne({_id: req.headers["id-user"]}).populate("roles", "-__v");
     return getResult()
@@ -45,9 +63,11 @@ exports.getUsers = async (req) => {
         return {
             email: user.email,
             roles: authorities,
+            avatar: user.avatar
         }
     });
     } catch (error) {
-        throw new Error('Failed to execute MySQL query');
+        //throw new Error('Failed to execute MySQL query');
+        return {message: error}
     }
 }

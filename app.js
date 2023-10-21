@@ -17,7 +17,9 @@ app.use(bodyParser.json());
 
 app.use(express.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static('uploads'));
 
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to application." });

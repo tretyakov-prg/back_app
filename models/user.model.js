@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 
+const contactSchema = mongoose.Schema({
+  label: String
+});
+
 const User = mongoose.model(
   "User",
   new mongoose.Schema(
@@ -14,6 +18,7 @@ const User = mongoose.model(
         }
       ],
       avatar: String,
+      contact: Array,
     },
     { collection: 'Users' }
   )

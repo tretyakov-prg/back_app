@@ -14,18 +14,12 @@ module.exports = function(app) {
     next();
   });
 
-  app.get(`${URL_USERPATH}/all`,                                                             controller.allAccess);
-
   app.post(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.userDitails);
+
+  app.put(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.userUploadDitails);
 
   app.delete(`${URL_USERPATH}/upload`,           [authJwt.verifyToken],                      controller.userDeleteFile);
 
   app.post(`${URL_USERPATH}/upload`,             [authJwt.verifyToken], [upload],            controller.userUploadFile);
-
-  app.get(`${URL_USERPATH}/mod`,                 [authJwt.verifyToken, authJwt.isModerator], controller.moderatorBoard );
-
-  app.get(`${URL_USERPATH}/admin`,               [authJwt.verifyToken, authJwt.isAdmin],     controller.adminBoard);
-
-  app.get(`${URL_USERPATH}/rols`,                [authJwt.verifyToken, authJwt.isAdmin],     controller.routeAdmin);
 
 };

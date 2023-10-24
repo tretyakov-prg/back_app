@@ -1,15 +1,6 @@
 const service = require('../services/user.service');
 const path = require('path');
 
-exports.allAccess = (req, res) => {
-  try {
-    var all = service.allAccess()
-    return res.status(200).json({ status: 200, data: all, message: "List all Users" });
-  } catch (e) {
-    return res.status(400).json({ status: 400, message: "Control: " + e.message });
-  }
-};
-
 exports.userDeleteFile = (req, res) => {
   try {
     var all = service.deleteFile(req);
@@ -37,17 +28,11 @@ exports.userDitails = async (req, res) => {
   }
 };
 
-exports.adminBoard = (req, res) => {
-  res.status(200).send("Admin Content.");
-};
-
-exports.moderatorBoard = (req, res) => {
-  res.status(200).send("Moderator Content.");
-};
-
-exports.routeAdmin = (req, res) => {
-  res.status(200).send({
-    "denis":"admin",
-    "mama":"user"
-  });
+exports.userUploadDitails = (req, res) => {
+  try {
+    var all = service.uploadUserDitails(req)
+    return res.status(200).json({ status: 200, data: all, message: "Upload ditails User" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
+  }
 };

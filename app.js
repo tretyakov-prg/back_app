@@ -7,10 +7,6 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3232;
 
-// var corsOptions = {
-//   origin: "http://localhost:3000"
-// };
-
 app.use(cors());
 
 app.use(bodyParser.json());
@@ -24,7 +20,7 @@ app.use(express.static('uploads'));
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to application." });
   });
-// routes
+
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 

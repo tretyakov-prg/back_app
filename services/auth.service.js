@@ -1,10 +1,10 @@
-const config = require("../config/auth.config");
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
 
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+const secret = process.env.SECRET;
 
 exports.login = async (req) => {
     try{
@@ -22,7 +22,7 @@ exports.login = async (req) => {
                 return {error: 500, message: "Invalid Password!"}
             }
 
-            var token = jwt.sign({ id: user._id, email: user.email }, config.secret, {
+            var token = jwt.sign({ id: user._id, email: user.email }, secret, {
                 expiresIn: '24h' //60//*60//86400 // 24 hours
             });
 

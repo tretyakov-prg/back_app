@@ -12,13 +12,10 @@ verifyToken = (req, res, next) => {
     return res.status(403).send({ error: 403, message: "No token provided!" });
   }
 
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, config.secret, (err,decode) => {
     if (err) {
       return res.status(401).send({ error: 401, message: "Unauthorized!" });
     }
-
-    // req.userId = decoded.id;
-    // req.chekMail = decoded.email;
     next();
   });
 };
@@ -26,7 +23,7 @@ verifyToken = (req, res, next) => {
 isAdmin = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
-      res.status(500).send({ message: err });
+      res.status(500).send({error: 500, message: err });
       return;
     }
 
@@ -36,7 +33,7 @@ isAdmin = (req, res, next) => {
       },
       (err, roles) => {
         if (err) {
-          res.status(500).send({ message: err });
+          res.status(500).send({error: 500, message: err });
           return;
         }
 
@@ -57,7 +54,7 @@ isAdmin = (req, res, next) => {
 isModerator = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
-      res.status(500).send({ message: err });
+      res.status(500).send({error:500, message: err });
       return;
     }
 
@@ -67,7 +64,7 @@ isModerator = (req, res, next) => {
       },
       (err, roles) => {
         if (err) {
-          res.status(500).send({ message: err });
+          res.status(500).send({error: 500, message: err });
           return;
         }
 

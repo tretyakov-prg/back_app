@@ -14,7 +14,7 @@ exports.deleteFile = async(req, res) => {
         await user.save();
         return {message: "File avatar delete"};
     } catch (error) {
-        return {message: error}
+        return {error: 500, message: error}
     }
 }
 
@@ -26,7 +26,7 @@ exports.uploadFile = async (req) => {
         await user.save();
         return {message: "File avatar Upload"};
     } catch (error) {
-        return {message: error}
+        return { error: 500, message: error}
     }
 }
 
@@ -35,17 +35,13 @@ exports.getUserDitails = async(req) => {
         const getResult = async () => await User.findOne({_id: req.headers["id-user"]}).populate("roles", "-__v");
         return getResult()
         .then((user) => {
-
             if (!user) { 
                 return { error: 500, message: "User Not found." } 
             }
-
             var authorities = [];
-
             for (let i = 0; i < user.roles.length; i++) {
                 authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
             }
-
             return {
                 email: user.email,
                 roles: authorities,
@@ -55,19 +51,15 @@ exports.getUserDitails = async(req) => {
         })
         .catch(err => console.log(err))
     } catch (error) {
-        return {message: error}
+        return { error: 500, message: error}
     }
 }
 
 exports.uploadUserDitails = async(req) => {
     try {
-
-        const user = await User.findByIdAndUpdate(req.headers["id-user"], {contact: req.body}, {useFindAndModify: false});
-        console.log(user)
-        //user.contact = req.body;
-        //await user.save();
+        await User.findByIdAndUpdate(req.headers["id-user"], {contact: req.body}, {useFindAndModify: false});
         return {message: "Contacts added to user"};
     } catch (error) {
-        return {message: error}
+        return {error: 500, message: error}
     }
 }

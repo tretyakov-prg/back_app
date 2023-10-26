@@ -19,7 +19,7 @@ exports.userUploadFile = (req, res) => {
   }
 };
   
-exports.userDitails = async (req, res) => {
+exports.getDitails = async (req, res) => {
   try {
     var all = await service.getUserDitails(req)
     return res.status(200).json({ status: 200, data: all, message: "Ditails User" });

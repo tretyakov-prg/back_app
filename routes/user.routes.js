@@ -13,8 +13,9 @@ module.exports = function(app) {
     );
     next();
   });
+  app.get(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.getDitails);
 
-  app.post(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.userDitails);
+  //app.post(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.userDitails);
 
   app.put(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.userUploadDitails);
 

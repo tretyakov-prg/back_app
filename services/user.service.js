@@ -3,8 +3,18 @@ const path = require('path');
 var fs = require("fs");
 const User = db.user;
 const Role = db.role;
+const Product = db.product;
 
 const root_folder = process.env.FOLDER_PATH;
+
+exports.getProducts = async() => {
+    try {
+        const filter = {};
+        return await Product.find(filter);
+    } catch (error) {
+        return {error: 500, message: error}
+    }
+}
 
 exports.deleteFile = async(req, res) => {
     try {
@@ -59,6 +69,24 @@ exports.uploadUserDitails = async(req) => {
     try {
         await User.findByIdAndUpdate(req.headers["id-user"], {contact: req.body}, {useFindAndModify: false});
         return {message: "Contacts added to user"};
+    } catch (error) {
+        return {error: 500, message: error}
+    }
+}
+
+exports.addWishes = async(req) => {
+    try {
+        //await User.findByIdAndUpdate(req.headers["id-user"], {contact: req.body}, {useFindAndModify: false});
+        return {message: "Wishes item added to user"};
+    } catch (error) {
+        return {error: 500, message: error}
+    }
+}
+
+exports.deleteWishes = async(req) => {
+    try {
+        //await User.findByIdAndUpdate(req.headers["id-user"], {contact: req.body}, {useFindAndModify: false});
+        return {message: "Wishes item delete to user"};
     } catch (error) {
         return {error: 500, message: error}
     }

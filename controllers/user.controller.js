@@ -1,6 +1,15 @@
 const service = require('../services/user.service');
 const path = require('path');
 
+exports.getProducts = async (req, res) => {
+  try {
+    var data = await service.getProducts(req)
+    return res.status(200).json({ status: 200, data, message: "Get Products" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
+  }
+};
+
 exports.userDeleteFile = (req, res) => {
   try {
     var all = service.deleteFile(req);
@@ -32,6 +41,24 @@ exports.userUploadDitails = (req, res) => {
   try {
     var all = service.uploadUserDitails(req)
     return res.status(200).json({ status: 200, data: all, message: "Upload ditails User" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
+  }
+};
+
+exports.addWishes = (req, res) => {
+  try {
+    var all = service.addWishes(req)
+    return res.status(200).json({ status: 200, data: all, message: "Add Wishes Item" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
+  }
+};
+
+exports.deleteWishes = (req, res) => {
+  try {
+    var all = service.deleteWishes(req)
+    return res.status(200).json({ status: 200, data: all, message: "Delete Wishes Item" });
   } catch (e) {
     return res.status(400).json({ status: 400, message: "Control: " + e.message });
   }

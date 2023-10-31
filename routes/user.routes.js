@@ -13,14 +13,19 @@ module.exports = function(app) {
     );
     next();
   });
-  app.get(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.getDitails);
 
-  //app.post(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.userDitails);
+  app.get(`${URL_USERPATH}/products`,                                     controller.getProducts);
+  
+  app.get(`${URL_USERPATH}/ditails`,    [authJwt.verifyToken],            controller.getDitails);
 
-  app.put(`${URL_USERPATH}/ditails`,            [authJwt.verifyToken],                      controller.userUploadDitails);
+  app.put(`${URL_USERPATH}/wishes`,     [authJwt.verifyToken],            controller.addWishes);
 
-  app.delete(`${URL_USERPATH}/upload`,           [authJwt.verifyToken],                      controller.userDeleteFile);
+  app.delete(`${URL_USERPATH}/wishes`,  [authJwt.verifyToken],            controller.deleteWishes);
 
-  app.post(`${URL_USERPATH}/upload`,             [authJwt.verifyToken], [upload],            controller.userUploadFile);
+  app.put(`${URL_USERPATH}/ditails`,    [authJwt.verifyToken],            controller.userUploadDitails);
+
+  app.delete(`${URL_USERPATH}/upload`,  [authJwt.verifyToken],            controller.userDeleteFile);
+
+  app.post(`${URL_USERPATH}/upload`,    [authJwt.verifyToken], [upload],  controller.userUploadFile);
 
 };

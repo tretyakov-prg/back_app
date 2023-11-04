@@ -15,7 +15,9 @@ module.exports = function(app) {
   });
 
   app.get(`${URL_USERPATH}/products`,                                     controller.getProducts);
-  
+
+  app.get(`${URL_USERPATH}/products/:id`,                                 controller.getProductId);
+
   app.get(`${URL_USERPATH}/ditails`,    [authJwt.verifyToken],            controller.getDitails);
 
   app.put(`${URL_USERPATH}/wishes`,     [authJwt.verifyToken],            controller.addWishes);

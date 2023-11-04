@@ -10,6 +10,15 @@ exports.getProducts = async (req, res) => {
   }
 };
 
+exports.getProductId = async (req, res) => {
+  try {
+    var data = await service.getProductId(req)
+    return res.status(200).json({ status: 200, data, message: "Get Product to ID" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
+  }
+};
+
 exports.userDeleteFile = (req, res) => {
   try {
     var all = service.deleteFile(req);

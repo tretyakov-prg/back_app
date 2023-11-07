@@ -23,6 +23,10 @@ app.get("/", (req, res) => {
 
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/basket.routes')(app);
+require('./routes/category.routes')(app);
+require('./routes/product.routes')(app);
+require('./routes/wishes.routes')(app);
 
 app.listen(port, () => {
     console.log("Load server to port: " + port);

@@ -23,7 +23,7 @@ exports.login = async (req) => {
             }
 
             var token = jwt.sign({ id: user._id, email: user.email }, secret, {
-                expiresIn: 60//'24h' //60//*60//86400 // 24 hours
+                expiresIn: '24h' //60//*60//86400 // 24 hours
             });
 
             var authorities = [];

@@ -1,23 +1,4 @@
 const service = require('../services/user.service');
-const path = require('path');
-
-exports.getProducts = async (req, res) => {
-  try {
-    var data = await service.getProducts(req)
-    return res.status(200).json({ status: 200, data, message: "Get Products" });
-  } catch (e) {
-    return res.status(400).json({ status: 400, message: "Control: " + e.message });
-  }
-};
-
-exports.getProductId = async (req, res) => {
-  try {
-    var data = await service.getProductId(req)
-    return res.status(200).json({ status: 200, data, message: "Get Product to ID" });
-  } catch (e) {
-    return res.status(400).json({ status: 400, message: "Control: " + e.message });
-  }
-};
 
 exports.userDeleteFile = (req, res) => {
   try {
@@ -37,7 +18,7 @@ exports.userUploadFile = (req, res) => {
   }
 };
   
-exports.getDitails = async (req, res) => {
+exports.getUserDitails = async (req, res) => {
   try {
     var all = await service.getUserDitails(req)
     return res.status(200).json({ status: 200, data: all, message: "Ditails User" });
@@ -50,24 +31,6 @@ exports.userUploadDitails = (req, res) => {
   try {
     var all = service.uploadUserDitails(req)
     return res.status(200).json({ status: 200, data: all, message: "Upload ditails User" });
-  } catch (e) {
-    return res.status(400).json({ status: 400, message: "Control: " + e.message });
-  }
-};
-
-exports.addWishes = (req, res) => {
-  try {
-    var all = service.addWishes(req)
-    return res.status(200).json({ status: 200, data: all, message: "Add Wishes Item" });
-  } catch (e) {
-    return res.status(400).json({ status: 400, message: "Control: " + e.message });
-  }
-};
-
-exports.deleteWishes = (req, res) => {
-  try {
-    var all = service.deleteWishes(req)
-    return res.status(200).json({ status: 200, data: all, message: "Delete Wishes Item" });
   } catch (e) {
     return res.status(400).json({ status: 400, message: "Control: " + e.message });
   }

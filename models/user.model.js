@@ -15,6 +15,7 @@ const User = mongoose.model(
       ],
       avatar: String,
       contact: Array,
+      wishlist: Array
     },
     { collection: 'Users' }
   )

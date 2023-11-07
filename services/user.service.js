@@ -1,28 +1,8 @@
 const db = require("../models");
-const path = require('path');
 var fs = require("fs");
 const User = db.user;
-const Role = db.role;
-const Product = db.product;
 
 const root_folder = process.env.FOLDER_PATH;
-
-exports.getProducts = async() => {
-    try {
-        const filter = {};
-        return await Product.find(filter).populate({ path: "category"});
-    } catch (error) {
-        return {error: 500, message: error}
-    }
-}
-
-exports.getProductId = async(req) => {
-    try {
-        return await Product.findById({_id:req.params.id});
-    } catch (error) {
-        return {error: 500, message: error}
-    }
-}
 
 exports.deleteFile = async(req, res) => {
     try {
@@ -64,7 +44,8 @@ exports.getUserDitails = async(req) => {
                 email: user.email,
                 roles: authorities,
                 avatar: user.avatar,
-                contact: user.contact
+                contact: user.contact,
+                wishlist: user.wishlist
             }
         })
         .catch(err => console.log(err))
@@ -82,20 +63,3 @@ exports.uploadUserDitails = async(req) => {
     }
 }
 
-exports.addWishes = async(req) => {
-    try {
-        //await User.findByIdAndUpdate(req.headers["id-user"], {contact: req.body}, {useFindAndModify: false});
-        return {message: "Wishes item added to user"};
-    } catch (error) {
-        return {error: 500, message: error}
-    }
-}
-
-exports.deleteWishes = async(req) => {
-    try {
-        //await User.findByIdAndUpdate(req.headers["id-user"], {contact: req.body}, {useFindAndModify: false});
-        return {message: "Wishes item delete to user"};
-    } catch (error) {
-        return {error: 500, message: error}
-    }
-}

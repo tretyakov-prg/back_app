@@ -5,7 +5,13 @@ const Category = mongoose.model(
     new mongoose.Schema(
         {
             name: String,
-            description: String
+            description: String,
+            products: [
+                {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: "Product"
+                }
+            ]
         },
         { collection: 'Categorys' }
     )

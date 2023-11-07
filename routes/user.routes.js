@@ -1,4 +1,3 @@
-const express = require('express');
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 const upload = require("../middlewares/uploadImage");
@@ -14,15 +13,7 @@ module.exports = function(app) {
     next();
   });
 
-  app.get(`${URL_USERPATH}/products`,                                     controller.getProducts);
-
-  app.get(`${URL_USERPATH}/products/:id`,                                 controller.getProductId);
-
-  app.get(`${URL_USERPATH}/ditails`,    [authJwt.verifyToken],            controller.getDitails);
-
-  app.put(`${URL_USERPATH}/wishes`,     [authJwt.verifyToken],            controller.addWishes);
-
-  app.delete(`${URL_USERPATH}/wishes`,  [authJwt.verifyToken],            controller.deleteWishes);
+  app.get(`${URL_USERPATH}/ditails`,    [authJwt.verifyToken],            controller.getUserDitails);
 
   app.put(`${URL_USERPATH}/ditails`,    [authJwt.verifyToken],            controller.userUploadDitails);
 

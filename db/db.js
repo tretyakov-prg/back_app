@@ -10,10 +10,10 @@ const host = process.env.MONGO_HOSTNAME;
 const port = process.env.MONGO_PORT;
 const dbo  = process.env.MONGO_DB;
 
-const con_string1 = `mongodb://${user}:${pass}@${host}:${port}/${dbo}?authMechanism=DEFAULT&authSource=admin`;
+const con_string = `mongodb://${user}:${pass}@${host}:${port}/${dbo}?authMechanism=DEFAULT&authSource=admin`;
 
 mongoose
-  .connect(con_string1, {
+  .connect(con_string, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })

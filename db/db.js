@@ -27,20 +27,20 @@ mongoose
   });
 
 function initial() {
-  Category.estimatedDocumentCount((err, count) =>{
-    console.log(err + "-: " + count);
-    if(!err && count === 0) {
-      new Category({
-        name: "test",
-        description: "test category data name"
-      }).save(err => {
-        if(err) {
-          console.log("error", err);
-        }
-        console.log("added 'test' to category collection");
-      });
-    }
-  })
+  // Category.estimatedDocumentCount((err, count) =>{
+  //   console.log(err + "-: " + count);
+  //   if(!err && count === 0) {
+  //     new Category({
+  //       name: "test",
+  //       description: "test category data name"
+  //     }).save(err => {
+  //       if(err) {
+  //         console.log("error", err);
+  //       }
+  //       console.log("added 'test' to category collection");
+  //     });
+  //   }
+  // })
   Role.estimatedDocumentCount((err, count) => {
     console.log(err + "-: " + count);
     if (!err && count === 0) {

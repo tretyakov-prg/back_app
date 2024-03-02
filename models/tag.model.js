@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
-const Category = mongoose.model(
-    "Category",
+const Tag = mongoose.model(
+    "Tag",
     new mongoose.Schema(
         {
             name: String,
             description: String,
         },
-        { collection: 'Category' }
+        { collection: 'Tag' }
     )
 );
 
-module.exports = Category;
+module.exports = Tag;

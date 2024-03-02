@@ -4,22 +4,35 @@ const Product = mongoose.model(
     "Product",
     new mongoose.Schema(
         {
-            sale: Number,
-            url: String,
-            image: String,
-            title: String,
+            sku: String,
+            name: String,
+            price: Number,
+            discount: Number,
+            offerEnd: String,
+            new: Boolean,
+            rating: Number,
+            saleCount: Number,
             category: [
                 {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: "Category"
                 }
             ],
-            description: String,
-            price: Number,
-            rating: {
-                rate: Number,
-                count: Number,
-            }
+            tag: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Tag"
+                }
+            ],
+            // variation: [
+            //     {
+            //         type: mongoose.Schema.Types.ObjectId,
+            //         ref: "Variation"
+            //     }
+            // ],
+            image:[],
+            shortDescription: String,
+            fullDescription: String
         },
         { collection: 'Products' }
     )

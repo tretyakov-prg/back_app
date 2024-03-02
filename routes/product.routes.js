@@ -1,8 +1,10 @@
 const controller = require("../controllers/product.controller");
+const cors = require("cors");
 
 const URL_USERPATH = process.env.URL_USERPATH;
 
 module.exports = function(app) {
+
   app.use(function(req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",

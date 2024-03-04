@@ -1,5 +1,4 @@
 const controller = require("../controllers/product.controller");
-const cors = require("cors");
 
 const URL_USERPATH = process.env.URL_USERPATH;
 

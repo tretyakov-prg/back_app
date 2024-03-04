@@ -32,6 +32,8 @@ require('./routes/basket.routes')(app);
 require('./routes/category.routes')(app);
 require('./routes/product.routes')(app);
 require('./routes/wishes.routes')(app);
+require('./routes/pay.routes')(app);
+require('./routes/coupon.routes')(app);
 
 app.listen(port, () => {
     console.log("Load server to port: " + port);

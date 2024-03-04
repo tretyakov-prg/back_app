@@ -12,6 +12,7 @@ db.tag = require('./tag.model');
 db.product = require('./product.model');
 db.wish = require('./wish.model');
 db.order = require('./order.model');
+db.coupon = require('./coupon.model');
 
 db.ROLES = ["user", "admin", "moderator"];
 

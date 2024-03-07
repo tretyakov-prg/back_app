@@ -4,13 +4,21 @@ const Order = mongoose.model(
     "Order",
     new mongoose.Schema(
         {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            },
+            email: String,
             order: String,
-            contact: Object,
-            dataBasket: Array
+            items: [
+                {
+                    id: { type: mongoose.Schema.Types.ObjectId, ref: "Products" },
+                    quantity: Number
+                }
+                
+            ],
+            price: Number,
+            status: String,
+            currency_name: String,
+            currency_rate: Number,
+            data_create: Date,
+            data_done: Date
         },
         { collection: 'Orders' }
     )

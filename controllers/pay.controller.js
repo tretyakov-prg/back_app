@@ -8,3 +8,12 @@ exports.getPay = async (req, res) => {
       return res.status(400).json({ status: 400, message: "Control: " + e.message });
     }
 };
+
+exports.getStatusPay = async (req, res) => {
+  try {
+    var data = await service.getStatusPay(req)
+    return res.status(200).json({ status: 200, data, message: "Get Status Pay" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
+  }
+};

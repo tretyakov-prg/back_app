@@ -12,7 +12,8 @@ module.exports = function(app) {
     next();
   });
 
-  app.post(`${URL_USERPATH}/pay`,                                     controller.getPay);
+  app.post(`${URL_USERPATH}/pay`,               controller.getPay);
+  app.get(`${URL_USERPATH}/paystatus/:status`,  controller.getStatusPay);
 
   //app.get(`${URL_USERPATH}/products/:id`,                                 controller.getProductId);
 

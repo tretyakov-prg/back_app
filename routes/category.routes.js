@@ -11,6 +11,6 @@ module.exports = function(app) {
     next();
   });
 
-  app.get(`${URL_USERPATH}/category`,                                     controller.getCategpry);
+  app.get(`${URL_USERPATH}/category/:id`,                                     controller.getCategpry);
 
 };

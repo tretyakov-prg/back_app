@@ -1,5 +1,3 @@
-var http = require('http');
-var fs = require('fs');
 
 function CreateHTMLOrderlight(dataOrder){
     var html = buildHtml(dataOrder);
@@ -14,83 +12,48 @@ function buildHtml(dataOrder) {
     dataOrder.item.map((itemToOrder, idx)=>{
         const quantityItem = dataOrder.quantity.find(itemArray => itemArray._id === (itemToOrder._id).toString())
         totalProductInOrder += quantityItem.quantity;
-        tableItems += `<tr>
-                            <td class="product-thumbnail">
-                                <a href="/product/${itemToOrder._id}">
-                                    <img class="img-fluid" src="https://stk-progress.ru/img/gallery/14.jpg" alt="" style="width: 150px; height: auto;">
-                                </a>
-                            </td>
-                            <td class="product-name">
-                                <a href="/product/${itemToOrder._id}">${itemToOrder.name}</a>
-                            </td>
-                            <td class="product-price-cart">
-                                <span class="amount old">${dataOrder.currency_name} ${itemToOrder.price}</span>
-                                <span class="amount">${(itemToOrder.price - itemToOrder.price * (itemToOrder.discount/100)).toFixed(2)}</span>
-                            </td>
-                            <td class="product-quantity">
-                                <div class="cart-plus-minus">
-                                    <div class="cart-plus-minus-box">${quantityItem.quantity}</div>
-                                </div>
-                            </td>
-                            <td class="product-subtotal">${dataOrder.currency_name} ${((itemToOrder.price - itemToOrder.price * (itemToOrder.discount/100)) * quantityItem.quantity).toFixed(2)}</td>
-                        </tr>`
+        tableItems += `
+        <div class="policy" style = " border-radius: 2em; background-color: white; margin-bottom: 20px; -moz-box-shadow: 0 0 3px grey; -webkit-box-shadow: 0 0 3px grey; box-shadow: 0 0 5px grey; display:flex; justify-content: center; align-items: center;">
+            <span style="flex-basis: 20%">
+                <a href="/product/${itemToOrder._id}">
+                    <img class="img-fluid" src="https://stk-progress.ru/img/gallery/14.jpg" alt="" style="width: 90px; height: auto;border-radius: 25px; border: 2px solid #ea6153; box-shadow: 0 0 7px #666; padding: 8px">
+                </a>
+            </span>
+            <span style="flex-basis: 20%" style="font-size: 30px"><a href="/product/${itemToOrder._id}">${itemToOrder.name}</a></span>
+            <span style="flex-basis: 20%" style="font-size: 30px">
+                ${itemToOrder.discount !== 0 ? `<p style="text-decoration: line-through;">${dataOrder.currency_name} ${itemToOrder.price} </p>` : ``}
+                <p>${dataOrder.currency_name} ${(itemToOrder.price - itemToOrder.price * (itemToOrder.discount/100)).toFixed(2)}</p>
+            </span>
+            <span style="flex-basis: 20%" style="font-size: 30px">${quantityItem.quantity}</span>
+            <span style="flex-basis: 20%" style="font-size: 30px">
+                ${dataOrder.currency_name} ${((itemToOrder.price - itemToOrder.price * (itemToOrder.discount/100)) * quantityItem.quantity).toFixed(2)}
+            </span>
+        </div>`
     })
     
     var body = `
-        <div id="root">
-                <div class="cart-main-area pt-90 pb-100">
-                    <div class="container">
-                        <h3 class="cart-page-title">Your cart items</h3>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="table-content table-responsive cart-table-content">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Image</th>
-                                                <th>Product Name</th>
-                                                <th>Unit Price</th>
-                                                <th>Qty</th>
-                                                <th>Subtotal</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                ${tableItems}
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="cart-shiping-update-wrapper">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6">
-                                
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                                <div class="grand-totall">
-                                    <div class="title-wrap">
-                                        <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
-                                    </div>
-                                    <h5>Total products <span> ${totalProductInOrder}</span></h5>
-                                    <h4 class="grand-totall-title">Grand Total <span>${dataOrder.currency_name} ${dataOrder.price}</span></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div>
+        <img src="https://149.154.66.75/assets/img/logo/logo-4.png" alt="" style="height:auto; width:300px" />
+        <h3>Hello ${dataOrder.name}!</h3>
+        <a href="https://149.154.66.75/status-order/${dataOrder.order}" style="text-decoration: underline overline;"> Your Order: <span style="font-style: italic;">${dataOrder.order}</span></a>
+        <div class="policy-container" style="width: 700px; padding-left: 50px; background-color: #eefbfb;font-family: sans-serif;font-size: 16px;">
+            <div class="policy-table" style="color: grey;text-align: center;">
+                <div class="headings" style="display: -webkit-box; display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify; justify-content: space-between; margin-bottom: 1em; padding: 1em;">
+                    <span class="heading" style="flex-basis: 20%;font-weight: bold;">Image</span>
+                    <span class="heading" style="flex-basis: 20%;font-weight: bold;">Product Name</span>
+                    <span class="heading" style="flex-basis: 20%;font-weight: bold;">Unit Price</span>
+                    <span class="heading" style="flex-basis: 20%;font-weight: bold;">Qty</span>
+                    <span class="heading" style="flex-basis: 20%;font-weight: bold;">Subtotal</span>
                 </div>
-            </div>`;
-  
-  
+                ${tableItems}
+                <div class="title-wrap" style="font-size: 30px">
+                    <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+                </div>
+                <h4>Total products <span> ${totalProductInOrder}</span></h4>
+                <h3 class="grand-totall-title">Grand Total <span>${dataOrder.currency_name} ${dataOrder.price}</span></h3>
+            </div>
+        </div>
+    </div>`;
     return  body;
 };
 

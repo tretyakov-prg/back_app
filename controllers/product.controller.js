@@ -17,3 +17,12 @@ exports.getProducts = async (req, res) => {
       return res.status(400).json({ status: 400, message: "Control: " + e.message });
     }
   };
+
+  exports.getProductSearch = async (req, res) => {
+    try {
+      var data = await service.getProductSearch(req)
+      return res.status(200).json({ status: 200, data, message: "Get Search to Product" });
+    } catch (e) {
+      return res.status(400).json({ status: 400, message: "Control: " + e.message });
+    }
+  };

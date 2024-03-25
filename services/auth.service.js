@@ -43,7 +43,7 @@ exports.login = async (req) => {
         return { error: 500, message: error}
     }
 }
-exports.register = (req) => {
+exports.register = async(req) => {
     try{
         const {firstName, email, password} = req.body;
 
@@ -52,34 +52,27 @@ exports.register = (req) => {
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8)
         });
-
-        user.save((err, user) => {
-            if (err) {
-            //res.status(500).send({ message: err });
-            return { error: 500, message: err };
-            }
-
+        const getResult = async() => await user.save(user)
+        return getResult()
+        .then(user =>{
             if (req.body.roles) {
-                Role.find(
-                    {
-                    name: { $in: req.body.roles }
-                    },
+                Role.find({name: { $in: req.body.roles }},
                     (err, roles) => {
-                    if (err) {
-                        //res.status(500).send({ message: err });
-                        return { error: 500, message: err };
-                    }
-
-                    user.roles = roles.map(role => role._id);
-                    user.save(err => {
                         if (err) {
-                        //res.status(500).send({ message: err });
-                        return { error: 500, message: err };
+                            //res.status(500).send({ message: err });
+                            return { error: 500, message: err };
                         }
 
-                        //res.send({ message: "User was registered successfully!" });
-                        return { error: 500, message: "User was registered successfully!" };
-                    });
+                        user.roles = roles.map(role => role._id);
+                        user.save(err => {
+                            if (err) {
+                            //res.status(500).send({ message: err });
+                            return { error: 500, message: err };
+                            }
+
+                            //res.send({ message: "User was registered successfully!" });
+                            return { message: "User was registered successfully!" };
+                        });
                     }
                 );
             }
@@ -97,11 +90,22 @@ exports.register = (req) => {
                         return { error: 500, message: err };
                         }
                         //res.send({ message: "User was registered successfully!" });
-                        return { error: 500, message: "User was registered successfully!" };
+                        return { message: "User was registered successfully!" };
                     });
                 });
             }
-        });
+        })
+        .catch(err => {
+            return { error: 500, message: err };
+        })
+        // const getResult = async() => await user.save((err, user) => {
+        //     if (err) {
+        //     //res.status(500).send({ message: err });
+        //     return { error: 500, message: err };
+        //     }
+
+        //     
+        //});
     } catch(error)
     {
         return { error: 500, message: error}

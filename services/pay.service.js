@@ -12,7 +12,6 @@ exports.getPay = async(req, res) => {
         const dataOrderParams = {
             currency_name: req.body.currency ? req.body.currency.currencyName : "$",
             currency_rate: req.body.currency ? req.body.currency.currencyRate : 1,
-            name: req.body.biling.fname,
             email: req.body.biling.email,
             order: uuidv4(),
             items: req.body.order.items,

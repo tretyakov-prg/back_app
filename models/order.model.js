@@ -8,10 +8,9 @@ const Order = mongoose.model(
             order: String,
             items: [
                 {
-                    id: { type: mongoose.Schema.Types.ObjectId, ref: "Products" },
+                    _id: { type: mongoose.Schema.Types.ObjectId, ref: "Products" },
                     quantity: Number
                 }
-                
             ],
             price: Number,
             status: String,

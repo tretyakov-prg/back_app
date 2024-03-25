@@ -35,3 +35,12 @@ exports.userUploadDitails = (req, res) => {
     return res.status(400).json({ status: 400, message: "Control: " + e.message });
   }
 };
+
+exports.getUserOrders = async (req, res) => {
+  try {
+    var all = await service.getUserOrders(req)
+    return res.status(200).json({ status: 200, data: all, message: "Ditails User" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "Control: " + e.message });
+  }
+};

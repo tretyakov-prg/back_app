@@ -6,7 +6,7 @@ const Role = db.role;
 const secret = process.env.SECRET;
 
 verifyToken = (req, res, next) => {
-
+  
   const token = req.headers["x-access-token"];
 
   if (!token) {
@@ -15,7 +15,7 @@ verifyToken = (req, res, next) => {
 
   jwt.verify(token, secret, (err,decode) => {
     if (err) {
-      return res.status(401).send({ error: 401, message: "Unauthorized!" });
+      return res.status(401).send({ error: 401, message: "Unauthorized" });
     }
     next();
   });

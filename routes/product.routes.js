@@ -16,4 +16,6 @@ module.exports = function(app) {
 
   app.get(`${URL_USERPATH}/products/:id`,                                 controller.getProductId);
 
+  app.post(`${URL_USERPATH}/products`,                                    controller.getProductSearch);
+
 };

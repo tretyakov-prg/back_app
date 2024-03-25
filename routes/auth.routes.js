@@ -1,7 +1,7 @@
 const { verifySignUp } = require("../middlewares");
 const controller = require("../controllers/auth.controller");
 
-const URL_PATH = process.env.URL_AUTHPATH;
+const URL_PATH = process.env.URL_USERPATH;
 
 module.exports = function(app) {
   app.use(function(req, res, next) {

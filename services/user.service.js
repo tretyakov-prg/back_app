@@ -1,6 +1,9 @@
 const db = require("../models");
 var fs = require("fs");
 const User = db.user;
+const Order = db.order;
+const Products = db.product;
+
 
 const root_folder = process.env.FOLDER_PATH;
 
@@ -63,3 +66,29 @@ exports.uploadUserDitails = async(req) => {
     }
 }
 
+exports.getUserOrders = async(req) => {
+    try {
+        const getResult = async () => await User.findOne({_id: req.headers["id-user"]});
+        return getResult()
+        .then((user) => {
+            if (!user) { 
+                return { error: 500, message: "User Not found." };
+            }
+
+            const getOrdersFromUser = async() => await Order.find({email: user.email}).populate({
+                path: "items",
+                populate: [{
+                    path: "_id",
+                    model: Products
+                }]
+            });
+            return getOrdersFromUser()
+            .then((listOrders)=>{
+                return listOrders
+            })
+        })
+        .catch(err => console.log(err))
+    } catch (error) {
+        return { error: 500, message: error}
+    }
+}
